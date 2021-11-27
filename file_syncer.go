@@ -108,13 +108,6 @@ func (s *FileSyncer) SyncDir(localDirPath string) error {
 		return err
 	}
 
-	if strings.HasSuffix(localDirPath, "新建文件夹") {
-		return nil
-	}
-	if strings.Contains(localDirPath, "新建文本文档.txt") {
-		return nil
-	}
-
 	remoteJoinDir := JoinRemotePath(localDirPath)
 	s.sftpClient.Mkdir(remoteJoinDir)
 	for _, file := range localFiles {
