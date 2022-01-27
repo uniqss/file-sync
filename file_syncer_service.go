@@ -95,8 +95,12 @@ func (fsync* FileSyncerService) Run()  {
 	}
 }
 
+func (fsync* FileSyncerService) BeforeTerminate()  {
+	g_FileSyncer.Disconnect()
+	g_sshClient.Close()
+}
+
 func newFileSyncerService() *FileSyncerService {
 	return &FileSyncerService{
-
 	}
 }

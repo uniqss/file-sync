@@ -17,6 +17,7 @@ import (
 
 var (
 	g_FileSyncer = newFileSyncer()
+	g_sshClient *ssh.Client
 )
 
 type FileSyncer struct {
@@ -35,12 +36,14 @@ func (s *FileSyncer) Connect() bool {
 		},
 	}
 	addr := fmt.Sprintf("%s:%d", g_SyncCfg.SshHost, g_SyncCfg.SshPort)
-	sshClient, err := ssh.Dial("tcp", addr, clientConfig)
+	var err error = nil
+	g_sshClient, err = ssh.Dial("tcp", addr, clientConfig)
 	if err != nil {
 		log.Fatalf("connect [%s] failed:%v\n", addr, err)
 		return false
 	}
-	sftpClient, err := sftp.NewClient(sshClient)
+
+	sftpClient, err := sftp.NewClient(g_sshClient)
 	if err != nil {
 		log.Fatalf("new sftp client failed:%v \n", err)
 		return false
