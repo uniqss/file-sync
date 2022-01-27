@@ -1,13 +1,13 @@
 {
-	"localDir": "E:/test/",
-	"remoteDir": "/root/test/",
+	"localDir": "E:/file_sync/workspace/gkit/",
+	"remoteDir": "/home/uniqs/gkit-devops/",
 
-	"sshHost": "192.168.1.178",
+	"sshHost": "192.168.1.177",
 	"sshPort": 22,
-	"sshUserName": "root",
+	"sshUserName": "uniqs",
 	"sshPassword": "wwlovecoding",
 
-	"ignoreFiles": [
+	"ignoreRegex": [
 		".git",
 		".idea",
 		".swp",
@@ -15,8 +15,5 @@
 		".sln",
 		".svn",
 		"node_modules"
-	],
-	"ignoreDirs": [
-		"go-project/.idea"
 	]
 }

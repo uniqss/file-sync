@@ -25,7 +25,7 @@ func (w *FileWatcher) Init() bool {
 			if err != nil {
 				log.Fatalf("Walk filepath:%s err1:%v\n", path, err)
 			}
-			if IsIgnoreDir(path) {
+			if IsIgnore(path) {
 				// log.Printf("Ignore path: %s\n", path)
 				return nil
 			}

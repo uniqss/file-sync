@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -25,8 +26,7 @@ type SyncConfig struct { //json.Unmarshal struct must public var
 	SshUserName string
 	SshPassword string
 
-	IgnoreFiles []string
-	IgnoreDirs  []string //relative path to LocalDir
+	IgnoreRegex []string
 	ReplaceRule map[string]string
 }
 
@@ -58,29 +58,14 @@ func loadConfig() bool {
 	return true
 }
 
-func IsIgnoreDir(dirname string) bool {
-	for _, prefix := range g_SyncCfg.IgnoreDirs {
-		absPrefix := filepath.Join(g_SyncCfg.LocalDir, prefix)
-		if strings.HasPrefix(dirname, absPrefix) {
+func IsIgnore(fPath string) bool {
+	for _, ignoreRegex := range g_SyncCfg.IgnoreRegex {
+		match, _ := regexp.MatchString(ignoreRegex, fPath)
+		if match {
 			return true
 		}
 	}
-	return false
-}
 
-func IsIgnoreFile(fpath string) bool {
-	dirname, filename := filepath.Split(fpath)
-	for _, suffix := range g_SyncCfg.IgnoreFiles {
-		if strings.HasSuffix(filename, suffix) {
-			return true
-		}
-	}
-	for _, prefix := range g_SyncCfg.IgnoreDirs {
-		absPrefix := filepath.Join(g_SyncCfg.LocalDir, prefix)
-		if strings.HasPrefix(dirname, absPrefix) {
-			return true
-		}
-	}
 	return false
 }
 

@@ -66,7 +66,7 @@ func (s *FileSyncer) Run() {
 }
 
 func (s *FileSyncer) SyncFile(localFilePath string) error {
-	if IsIgnoreFile(localFilePath) {
+	if IsIgnore(localFilePath) {
 		fmt.Printf("ignore sync file: %s\n", localFilePath)
 		return nil
 	}
@@ -98,7 +98,7 @@ func (s *FileSyncer) SyncFile(localFilePath string) error {
 }
 
 func (s *FileSyncer) SyncDir(localDirPath string) error {
-	if IsIgnoreDir(localDirPath) {
+	if IsIgnore(localDirPath) {
 		fmt.Printf("ignore sync dir: %s\n", localDirPath)
 		return nil
 	}
@@ -123,7 +123,7 @@ func (s *FileSyncer) SyncDir(localDirPath string) error {
 }
 
 func (s *FileSyncer) RemoveFile(remoteFilePath string) error {
-	if IsIgnoreFile(remoteFilePath) {
+	if IsIgnore(remoteFilePath) {
 		fmt.Printf("ignore remove file: %s\n", remoteFilePath)
 		return nil
 	}
@@ -137,7 +137,7 @@ func (s *FileSyncer) RemoveFile(remoteFilePath string) error {
 }
 
 func (s *FileSyncer) RemoveDir(remoteRemoveDir string) error {
-	if IsIgnoreDir(remoteRemoveDir) {
+	if IsIgnore(remoteRemoveDir) {
 		fmt.Printf("ignore remove dir: %s\n", remoteRemoveDir)
 		return nil
 	}
